@@ -74,7 +74,7 @@ export const EndorsementAnnounceNotificationSchema = z.object({
     ]),
 });
 
-export const coarNotificationTypeSchemaMap = {
+export const CoarNotificationTypeSchemaMap = {
     // Review Actions
     "Accept:coar-notify:ReviewAction": ReviewAcceptNotificationSchema,
     "Announce:coar-notify:ReviewAction": ReviewAnnounceNotificationSchema,

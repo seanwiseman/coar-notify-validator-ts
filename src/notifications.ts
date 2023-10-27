@@ -1,4 +1,7 @@
-import { coarNotificationTypeSchemaMap, CoarNotifyNotificationSchema } from "./schemas.ts";
+import {
+    CoarNotificationTypeSchemaMap,
+    CoarNotifyNotificationSchema
+} from "./schemas.ts";
 
 
 export function getSchemaByType(notificationType: string | string[]): CoarNotifyNotificationSchema | undefined {
@@ -10,5 +13,5 @@ export function getSchemaByType(notificationType: string | string[]): CoarNotify
         _type = notificationType
     }
 
-    return coarNotificationTypeSchemaMap[_type as keyof typeof coarNotificationTypeSchemaMap] as CoarNotifyNotificationSchema;
+    return CoarNotificationTypeSchemaMap[_type as keyof typeof CoarNotificationTypeSchemaMap] as CoarNotifyNotificationSchema;
 }
