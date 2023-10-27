@@ -28,19 +28,29 @@ export const ActorSchema = z.object({
     type: z.enum(["Person", "Service"]),
 });
 
-export type CoarNotifyNotificationSchema = typeof ReviewAcceptNotificationSchema
-    | typeof ReviewAnnounceNotificationSchema
-    | typeof ReviewOfferNotificationSchema;
-
-export const ReviewAnnounceNotificationSchema = z.object({});
-export const ReviewAcceptNotificationSchema = z.object({});
-export const ReviewOfferNotificationSchema = z.object({
+export const BaseNotificationSchema = z.object({
     "@context": ContextSchema,
     id: IdSchema,
     origin: OriginOrTargetSchema,
     target: OriginOrTargetSchema,
     object: ObjectSchema,
     actor: ActorSchema,
+});
+
+export type CoarNotifyNotificationSchema = typeof ReviewAcceptNotificationSchema
+    | typeof ReviewAnnounceNotificationSchema
+    | typeof ReviewOfferNotificationSchema;
+
+export const ReviewAnnounceNotificationSchema = z.object({});
+export const ReviewAcceptNotificationSchema = z.object({
+    ...BaseNotificationSchema.shape,
+    type: z.tuple([
+        z.literal("Accept"),
+        z.literal("coar-notify:ReviewAction")
+    ]),
+});
+export const ReviewOfferNotificationSchema = z.object({
+    ...BaseNotificationSchema.shape,
     type: z.tuple([
         z.literal("Offer"),
         z.literal("coar-notify:ReviewAction")
