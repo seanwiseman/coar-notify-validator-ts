@@ -433,5 +433,47 @@ describe("validate", () => {
         expect(isValid).toBe(true);
         expect(errors).toEqual([]);
     });
+
+    test("can validate valid tentative accept action", () => {
+        const payload = {
+            "@context": [
+                "https://www.w3.org/ns/activitystreams",
+                "https://purl.org/coar/notify"
+            ],
+            "actor": {
+                "id": "https://generic-service.com",
+                "name": "Generic Service",
+                "type": "Service"
+            },
+            "context": {
+                "id": "https://some-organisation.org/resource/0021",
+                "ietf:cite-as": "https://doi.org/10.4598/12123487",
+                "type": "Document"
+            },
+            "id": "urn:uuid:4fb3af44-d4f8-4226-9475-2d09c2d8d9e0",
+            "inReplyTo": "urn:uuid:0370c0fb-bb78-4a9b-87f5-bed307a509dd",
+            "object": {
+                "id": "urn:uuid:0370c0fb-bb78-4a9b-87f5-bed307a509dd",
+                "object": "https://some-organisation.org/resource/0021",
+                "type": "Offer"
+            },
+            "origin": {
+                "id": "https://generic-service.com/system",
+                "inbox": "https://generic-service.com/system/inbox/",
+                "type": "Service"
+            },
+            "target": {
+                "id": "https://some-organisation.org",
+                "inbox": "https://some-organisation.org/inbox/",
+                "type": "Organization"
+            },
+            "type": "TentativeAccept"
+        }
+
+        const { isValid, errors } = validate(payload);
+
+        expect(isValid).toBe(true);
+        expect(errors).toEqual([]);
+    });
 });
 
