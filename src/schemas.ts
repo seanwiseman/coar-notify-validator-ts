@@ -15,7 +15,7 @@ export const ContextSchema = z.tuple([
 export const OriginOrTargetSchema = z.object({
     id: z.string().url(),
     inbox: z.string().url(),
-    type: z.literal("Service"),
+    type: z.enum(["Organization", "Service"]),
 });
 
 export const ObjectSchema = z.object({
@@ -44,7 +44,8 @@ export type CoarNotifyNotificationSchema = typeof ReviewAcceptNotificationSchema
     | typeof EndorsementOfferNotificationSchema
     | typeof IngestAnnounceNotificationSchema
     | typeof IngestOfferNotificationSchema
-    | typeof RelationshipAnnounceNotificationSchema;
+    | typeof RelationshipAnnounceNotificationSchema
+    | typeof UndoNotificationSchema;
 
 export const ReviewAnnounceNotificationSchema = z.object({
     ...BaseNotificationSchema.shape,
@@ -110,6 +111,11 @@ export const RelationshipAnnounceNotificationSchema = z.object({
     ]),
 });
 
+export const UndoNotificationSchema = z.object({
+    ...BaseNotificationSchema.shape,
+    type: z.literal("Undo")
+});
+
 export const CoarNotificationTypeSchemaMap = {
     // Review Actions
     "Accept:coar-notify:ReviewAction": ReviewAcceptNotificationSchema,
@@ -132,6 +138,6 @@ export const CoarNotificationTypeSchemaMap = {
     // "Reject"
     // "TentativeAccept"
     // "TentativeReject"
-    // "Undo"
+    "Undo": UndoNotificationSchema,
 
 };

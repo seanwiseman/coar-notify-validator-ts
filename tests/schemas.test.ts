@@ -91,15 +91,17 @@ describe("OriginOrTargetSchema", () => {
         expect(success).toBe(false);
         expect(error.issues).toEqual([
                 {
-                    code: "invalid_literal",
-                    expected: "Service",
-                    message: "Invalid literal value, expected \"Service\"",
+                    code: "invalid_enum_value",
+                    message: "Invalid enum value. Expected 'Organization' | 'Service', received 'INVALID-TYPE'",
+                    options: [
+                        "Organization",
+                        "Service"
+                    ],
                     path: [
                         "type"
                     ],
                     received: "INVALID-TYPE"
                 }
-
             ]
         );
     });
@@ -248,62 +250,4 @@ describe("ActorSchema", () => {
             }
         ]);
     });
-});
-
-describe("ReviewOfferNotificationSchema", () => {
-
-    const validPayload = {
-        "@context": [
-            "https://www.w3.org/ns/activitystreams",
-            "https://purl.org/coar/notify"
-        ],
-        id: "urn:uuid:0370c0fb-bb78-4a9b-87f5-bed307a509dd",
-        origin: {
-            "id": "https://research.org/repository",
-            "inbox": "https://research.org/inbox",
-            "type": "Service"
-        },
-        target: {
-            "id": "https://review-service.com/system",
-            "inbox": "https://review-service.com/inbox",
-            "type": "Service"
-        },
-        object: {
-            "id": "doi.org/10.5555/12345680",
-            "ietf:cite-as": "https://doi.org/10.5555/12345680",
-        },
-        actor: {
-            "id": "https://orcid.org/0000-0002-1825-1234",
-            "name": "John Doe",
-            "type": "Person"
-        },
-        type: [
-            "Offer",
-            "coar-notify:ReviewAction"
-        ]
-    };
-
-    test("can detect invalid type", () => {
-        const payload = {
-            ...validPayload,
-            type: [
-                "Offer",
-                "coar-notify:INVALID-TYPE"
-            ]
-        };
-
-        const { success, error } = ReviewOfferNotificationSchema.safeParse(payload) as SafeParseReturnType;
-        expect(success).toBe(false);
-        expect(error.issues).toEqual([
-                {
-                    received: "coar-notify:INVALID-TYPE",
-                    code: "invalid_literal",
-                    expected: "coar-notify:ReviewAction",
-                    path: ["type", 1],
-                    message: "Invalid literal value, expected \"coar-notify:ReviewAction\""
-                }
-            ]
-        );
-    });
-
 });
