@@ -217,11 +217,8 @@ describe("ActorSchema", () => {
         expect(error.issues).toEqual([
                 {
                     code: "invalid_enum_value",
-                    message: "Invalid enum value. Expected 'Person' | 'Service', received 'INVALID-TYPE'",
-                    options: [
-                        "Person",
-                        "Service"
-                    ],
+                    message: "Invalid enum value. Expected 'Application' | 'Group' | 'Organization' | 'Person' | 'Service', received 'INVALID-TYPE'",
+                    options: ["Application", "Group", "Organization", "Person", "Service"],
                     path: [
                         "type"
                     ],

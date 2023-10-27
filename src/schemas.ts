@@ -25,7 +25,7 @@ export const ObjectSchema = z.object({
 export const ActorSchema = z.object({
     id: z.string(),
     name: z.string(),
-    type: z.enum(["Person", "Service"]),
+    type: z.enum(["Application", "Group", "Organization", "Person", "Service"]),
 });
 
 export const BaseNotificationSchema = z.object({
@@ -83,6 +83,14 @@ export const EndorsementOfferNotificationSchema = z.object({
     ]),
 });
 
+export const IngestAnnounceNotificationSchema = z.object({
+    ...BaseNotificationSchema.shape,
+    type: z.tuple([
+        z.literal("Announce"),
+        z.literal("coar-notify:IngestAction")
+    ]),
+});
+
 export const CoarNotificationTypeSchemaMap = {
     // Review Actions
     "Accept:coar-notify:ReviewAction": ReviewAcceptNotificationSchema,
@@ -94,7 +102,7 @@ export const CoarNotificationTypeSchemaMap = {
     "Offer:coar-notify:EndorsementAction": EndorsementOfferNotificationSchema,
 
     // Ingest Actions
-    // "Announce:coar-notify:IngestAction"
+    "Announce:coar-notify:IngestAction": IngestAnnounceNotificationSchema,
     // "Offer:coar-notify:IngestAction"
 
     // Relationship Actions
