@@ -119,6 +119,11 @@ export const AnnounceNotificationSchema = z.object({
     type: z.literal("Announce")
 });
 
+export const RejectNotificationSchema = z.object({
+    ...BaseNotificationSchema.shape,
+    type: z.literal("Reject")
+});
+
 export const TentativeAcceptNotificationSchema = z.object({
     ...BaseNotificationSchema.shape,
     type: z.literal("TentativeAccept")
@@ -153,7 +158,7 @@ export const CoarNotificationTypeSchemaMap = {
 
     // Misc
     "Announce": AnnounceNotificationSchema,
-    // "Reject"
+    "Reject": RejectNotificationSchema,
     "TentativeAccept": TentativeAcceptNotificationSchema,
     "TentativeReject": TentativeRejectNotificationSchema,
     "Undo": UndoNotificationSchema,
