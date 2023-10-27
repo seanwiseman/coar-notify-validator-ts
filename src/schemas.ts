@@ -41,7 +41,13 @@ export type CoarNotifyNotificationSchema = typeof ReviewAcceptNotificationSchema
     | typeof ReviewAnnounceNotificationSchema
     | typeof ReviewOfferNotificationSchema;
 
-export const ReviewAnnounceNotificationSchema = z.object({});
+export const ReviewAnnounceNotificationSchema = z.object({
+    ...BaseNotificationSchema.shape,
+    type: z.tuple([
+        z.literal("Announce"),
+        z.literal("coar-notify:ReviewAction")
+    ]),
+});
 export const ReviewAcceptNotificationSchema = z.object({
     ...BaseNotificationSchema.shape,
     type: z.tuple([
