@@ -297,5 +297,105 @@ describe("validate", () => {
         expect(isValid).toBe(true);
         expect(errors).toEqual([]);
     });
+
+    test("can validate valid ingest offer", () => {
+        const payload = {
+            "@context": [
+                "https://www.w3.org/ns/activitystreams",
+                "https://purl.org/coar/notify"
+            ],
+            "actor": {
+                "id": "https://overlay-journal.com",
+                "name": "Overlay Journal",
+                "type": "Service"
+            },
+            "id": "urn:uuid:0370c0fb-bb78-4a9b-87f5-bed307a509dd",
+            "object": {
+                "id": "https://overlay-journal.com/submissions/00001/",
+                "type": "sorg:AboutPage",
+                "url": {
+                    "id": "https://overlay-journal.com/submissions/00001/files/content.pdf",
+                    "mediaType": "application/pdf",
+                    "type": [
+                        "Article",
+                        "sorg:ScholarlyArticle"
+                    ]
+                }
+            },
+            "origin": {
+                "id": "https://overlay-journal.com/system",
+                "inbox": "https://overlay-journal.com/inbox/",
+                "type": "Service"
+            },
+            "target": {
+                "id": "https://research-organisation.org/repository",
+                "inbox": "https://research-organisation.org/inbox/",
+                "type": "Service"
+            },
+            "type": [
+                "Offer",
+                "coar-notify:IngestAction"
+            ]
+        }
+
+        const { isValid, errors } = validate(payload);
+
+        expect(isValid).toBe(true);
+        expect(errors).toEqual([]);
+    });
+
+    test("can validate valid relationship announce offer", () => {
+        const payload = {
+            "@context": [
+                "https://www.w3.org/ns/activitystreams",
+                "https://purl.org/coar/notify"
+            ],
+            "actor": {
+                "id": "https://research-organisation.org",
+                "name": "Research Organisation",
+                "type": "Organization"
+            },
+            "context": {
+                "id": "https://another-research-organisation.org/repository/datasets/item/201203421/",
+                "ietf:cite-as": "https://doi.org/10.5555/999555666",
+                "type": "sorg:AboutPage",
+                "url": {
+                    "id": "https://another-research-organisation.org/repository/datasets/item/201203421/data_archive.zip",
+                    "mediaType": "application/zip",
+                    "type": [
+                        "Article",
+                        "sorg:Dataset"
+                    ]
+                }
+            },
+            "id": "urn:uuid:94ecae35-dcfd-4182-8550-22c7164fe23f",
+            "object": {
+                "as:object": "https://another-research-organisation.org/repository/datasets/item/201203421/",
+                "as:relationship": "http://purl.org/vocab/frbr/core#supplement",
+                "as:subject": "https://research-organisation.org/repository/item/201203/421/",
+                "id": "urn:uuid:74FFB356-0632-44D9-B176-888DA85758DC",
+                "type": "Relationship"
+            },
+            "origin": {
+                "id": "https://research-organisation.org/repository",
+                "inbox": "https://research-organisation.org/inbox/",
+                "type": "Service"
+            },
+            "target": {
+                "id": "https://another-research-organisation.org/repository",
+                "inbox": "https://another-research-organisation.org/inbox/",
+                "type": "Service"
+            },
+            "type": [
+                "Announce",
+                "coar-notify:RelationshipAction"
+            ]
+        }
+
+        const { isValid, errors } = validate(payload);
+
+        expect(isValid).toBe(true);
+        expect(errors).toEqual([]);
+    });
 });
 
