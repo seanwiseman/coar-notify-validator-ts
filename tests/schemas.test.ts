@@ -177,6 +177,20 @@ describe("ObjectSchema", () => {
             ]
         );
     });
+
+    test("can allow pass through of additional keys", () => {
+        const payload = {
+            id: "doi.org/10.5555/12345680",
+            "ietf:cite-as": "https://doi.org/10.5555/12345680",
+            type: [
+                "Document",
+                "sorg:Review"
+            ]
+        };
+
+        const { success } = ObjectSchema.safeParse(payload) as SafeParseReturnType;
+        expect(success).toBe(true);
+    });
 });
 
 describe("ActorSchema", () => {
@@ -293,23 +307,6 @@ describe("ReviewOfferNotificationSchema", () => {
                 }
             ]
         );
-    });
-
-    test("can allow passthrough of additional keys", () => {
-        const payload = {
-            ...validPayload,
-            object: {
-                ...validPayload.object,
-                "ietf:cite-as": "10.5072/zenodo.1223155",
-                type: [
-                    "Document",
-                    "sorg:Review"
-                ]
-            }
-        };
-
-        const { success } = ReviewOfferNotificationSchema.safeParse(payload) as SafeParseReturnType;
-        expect(success).toBe(true);
     });
 
 });
