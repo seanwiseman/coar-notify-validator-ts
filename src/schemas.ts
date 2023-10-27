@@ -46,6 +46,7 @@ export type CoarNotifyNotificationSchema = typeof ReviewAcceptNotificationSchema
     | typeof IngestOfferNotificationSchema
     | typeof RelationshipAnnounceNotificationSchema
     | typeof TentativeAcceptNotificationSchema
+    | typeof TentativeRejectNotificationSchema
     | typeof UndoNotificationSchema;
 
 export const ReviewAnnounceNotificationSchema = z.object({
@@ -117,6 +118,11 @@ export const TentativeAcceptNotificationSchema = z.object({
     type: z.literal("TentativeAccept")
 });
 
+export const TentativeRejectNotificationSchema = z.object({
+    ...BaseNotificationSchema.shape,
+    type: z.literal("TentativeReject")
+});
+
 export const UndoNotificationSchema = z.object({
     ...BaseNotificationSchema.shape,
     type: z.literal("Undo")
@@ -143,7 +149,7 @@ export const CoarNotificationTypeSchemaMap = {
     // "Announce"
     // "Reject"
     "TentativeAccept": TentativeAcceptNotificationSchema,
-    // "TentativeReject"
+    "TentativeReject": TentativeRejectNotificationSchema,
     "Undo": UndoNotificationSchema,
 
 };
