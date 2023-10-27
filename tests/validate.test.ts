@@ -2,7 +2,6 @@ import { expect, test, describe } from "bun:test";
 import { validate } from "../src/validate";
 
 
-
 describe("validate", () => {
 
     test("will handle payload not containing a type", () => {
@@ -127,6 +126,61 @@ describe("validate", () => {
             type: [
                 "Announce",
                 "coar-notify:ReviewAction"
+            ]
+        }
+
+        const { isValid, errors } = validate(payload);
+
+        expect(isValid).toBe(true);
+        expect(errors).toEqual([]);
+    });
+
+    test("can validate valid endorsement announce", () => {
+        const payload = {
+            "@context": [
+                "https://www.w3.org/ns/activitystreams",
+                "https://purl.org/coar/notify"
+            ],
+            actor: {
+                id: "https://overlay-journal.com",
+                name: "Overlay Journal",
+                type: "Service"
+            },
+            context: {
+                id: "https://research-organisation.org/repository/preprint/201203/421/",
+                "ietf:cite-as": "https://doi.org/10.5555/12345680",
+                type: "sorg:AboutPage",
+                url: {
+                    id: "https://research-organisation.org/repository/preprint/201203/421/content.pdf",
+                    mediaType: "application/pdf",
+                    type: [
+                        "Article",
+                        "sorg:ScholarlyArticle"
+                    ]
+                }
+            },
+            id: "urn:uuid:94ecae35-dcfd-4182-8550-22c7164fe23f",
+            object: {
+                id: "https://overlay-journal.com/articles/00001/",
+                "ietf:cite-as": "https://overlay-journal.com/articles/00001/",
+                type: [
+                    "Page",
+                    "sorg:WebPage"
+                ]
+            },
+            origin: {
+                id: "https://overlay-journal.com/system",
+                inbox: "https://overlay-journal.com/inbox/",
+                type: "Service"
+            },
+            target: {
+                id: "https://research-organisation.org/repository",
+                inbox: "https://research-organisation.org/inbox/",
+                type: "Service"
+            },
+            type: [
+                "Announce",
+                "coar-notify:EndorsementAction"
             ]
         }
 

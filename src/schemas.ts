@@ -39,7 +39,8 @@ export const BaseNotificationSchema = z.object({
 
 export type CoarNotifyNotificationSchema = typeof ReviewAcceptNotificationSchema
     | typeof ReviewAnnounceNotificationSchema
-    | typeof ReviewOfferNotificationSchema;
+    | typeof ReviewOfferNotificationSchema
+    | typeof EndorsementAnnounceNotificationSchema;
 
 export const ReviewAnnounceNotificationSchema = z.object({
     ...BaseNotificationSchema.shape,
@@ -48,6 +49,7 @@ export const ReviewAnnounceNotificationSchema = z.object({
         z.literal("coar-notify:ReviewAction")
     ]),
 });
+
 export const ReviewAcceptNotificationSchema = z.object({
     ...BaseNotificationSchema.shape,
     type: z.tuple([
@@ -55,6 +57,7 @@ export const ReviewAcceptNotificationSchema = z.object({
         z.literal("coar-notify:ReviewAction")
     ]),
 });
+
 export const ReviewOfferNotificationSchema = z.object({
     ...BaseNotificationSchema.shape,
     type: z.tuple([
@@ -63,8 +66,36 @@ export const ReviewOfferNotificationSchema = z.object({
     ]),
 });
 
+export const EndorsementAnnounceNotificationSchema = z.object({
+    ...BaseNotificationSchema.shape,
+    type: z.tuple([
+        z.literal("Announce"),
+        z.literal("coar-notify:EndorsementAction")
+    ]),
+});
+
 export const coarNotificationTypeSchemaMap = {
+    // Review Actions
     "Accept:coar-notify:ReviewAction": ReviewAcceptNotificationSchema,
     "Announce:coar-notify:ReviewAction": ReviewAnnounceNotificationSchema,
     "Offer:coar-notify:ReviewAction": ReviewOfferNotificationSchema,
+
+    // Endorsement Actions
+    "Announce:coar-notify:EndorsementAction": EndorsementAnnounceNotificationSchema,
+    // "Offer:coar-notify:EndorsementAction"
+
+    // Ingest Actions
+    // "Announce:coar-notify:IngestAction"
+    // "Offer:coar-notify:IngestAction"
+
+    // Relationship Actions
+    // "Announce:coar-notify:RelationshipAction"
+
+    // Misc
+    // "Announce"
+    // "Reject"
+    // "TentativeAccept"
+    // "TentativeReject"
+    // "Undo"
+
 };
