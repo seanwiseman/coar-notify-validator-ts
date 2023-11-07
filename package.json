@@ -1,11 +1,30 @@
 {
-  "name": "coar-notify-validator-ts",
-  "module": "index.ts",
+  "name": "coar-notify-validator",
+  "version": "0.0.1",
+  "module": "src/index.ts",
   "type": "module",
-  "devDependencies": {
-    "bun-types": "latest"
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "description": "",
+  "scripts": {
+    "build": "bun run build.mjs",
+    "prepublishOnly": "bun run build"
   },
-  "peerDependencies": {
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "bun"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/seanwiseman/coar-notify-validator-ts#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seanwiseman/coar-notify-validator-ts.git"
+  },
+  "devDependencies": {
+    "bun-types": "latest",
+    "bun-plugin-dts": "^0.2.1",
     "typescript": "^5.0.0"
   },
   "dependencies": {

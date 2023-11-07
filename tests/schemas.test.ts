@@ -7,7 +7,6 @@ import {
     IdSchema,
     ObjectSchema,
     OriginOrTargetSchema,
-    ReviewOfferNotificationSchema,
 } from "../src/schemas.ts";
 
 describe("IdSchema", () => {

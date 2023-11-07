@@ -1,5 +1,5 @@
 import { expect, test, describe } from "bun:test";
-import { validate } from "../src/validate";
+import { validate } from "../src";
 
 
 describe("validate", () => {
