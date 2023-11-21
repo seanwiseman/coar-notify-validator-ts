@@ -1,5 +1,11 @@
 # coar-notify-validator
 
+## Install via npm
+
+```bash
+npm i coar-notify-validator
+````
+
 ## Prerequisites
 
 https://bun.sh/docs/installation
